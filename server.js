@@ -5,15 +5,21 @@
 const express = require("express")///invoke express framework
 const app = express();//define our app using express
 const mongoose = require("mongoose");
-
+//mongoose.Promise = global.Promise;
 
 const bodyParser = require("body-parser");//to parser incoming resquest bodies
 const morgan = require("morgan");
 
 //Connect to mongoDB
-const db = mongoose.connection;
-db.on("error", console.error);
-mongoose.connect(`mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}:@ds249428.mlab.com:49428/heroku_8pxz75t5`)
+mongoose.connect(`mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}:@ds249428.mlab.com:49428/heroku_8pxz75t5`,{useMongoClient:true});
+//const db = mongoose.connection;
+console.log(mongoose.connection.readyState);
+mongoose.connection.on("error",console.error);
+mongoose.connection.once("open",function(){
+    console.log("Successfully connected to the Database");
+    
+});
+
 
 
 //Config
@@ -25,6 +31,9 @@ app.use(morgan("dev"));//Logger
 //handling routes
 const routes = require("./routes");
 const authRoute = require("./routes/auth");
+const Users = require('./models/UserSchema');
+//Default Users
+Users.seed();
 
 app.use("/",routes);//home route
 app.use("/login",authRoute);//authentication route
