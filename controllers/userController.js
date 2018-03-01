@@ -7,7 +7,9 @@ const userModel  = require("../models/UserSchema");
 
 const users = {}; //initialize our user object
 
-
+/**
+ * User Login
+ */
 users.login = (req, res) =>{
    const { email, password} = req.body.credentials;
 
@@ -17,8 +19,23 @@ users.login = (req, res) =>{
      res.send({status:"error", error: "Email or Password is missing! "});
    }
 
-   //Call userModel
-   const userLogin = userModel.methods.login(email, password);
-   
+   userModel.findOne({email:email, })
+  
+
 
 }
+
+
+/**
+ * User register
+ */
+users.saveUser = (req, res) =>{
+    
+    const { email, username, password } = req.body;
+       
+}
+
+
+
+    
+module.exports = users;

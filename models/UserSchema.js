@@ -35,7 +35,7 @@ var User = mongoose.model('User',UserSchema);
  */
 User.seed = function() {
    //set default password hash
-    this.setPassword("blarz");  
+    this.setPassword("123456");  
     var defaultUser = new User({
                                 email:"blarz@gmail.com", 
                                 username:'blarz', 
@@ -47,35 +47,8 @@ User.seed = function() {
     });
 }
 
-/**
- * User register
- */
-User.saveUser = (req, res) =>{
-   
-}
 
-/**
- * User Login
- * @argument  
- */
-User.login = (email, password) => {     
-     //Look up user
-    User.findOne({email, password})
-        .then(user => {
-            if(user && this.isValidPassword(password)){
-                
-            }
-        });
 
-}
-
-/**
- * Logout 
- */
-
-User.logout = sessionId => {
-
-}
 
 //Compare the hash password
 User.isValidPassword= password => {
@@ -83,8 +56,7 @@ User.isValidPassword= password => {
 }
 
 //Set password hash
-User.setPassword = password =>{
-   
+User.setPassword = password =>{   
     this.passwordHash = bcryp.hashSync(password, 10);
    
 }
