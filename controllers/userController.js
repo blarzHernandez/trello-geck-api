@@ -19,7 +19,14 @@ users.login = (req, res) =>{
      res.send({status:"error", error: "Email or Password is missing! "});
    }
 
-   userModel.findOne({email:email, })
+   userModel.findOne({email:email, password:password})
+   .then(user => {
+       if(user && user.isValidPassword(password)){
+           res.send({user:user})
+       }else{
+           res.status(400).json({status:"error", error:"Invalid Credentials"});
+       }
+   })
   
 
 
