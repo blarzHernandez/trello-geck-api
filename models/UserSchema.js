@@ -29,22 +29,28 @@ const UserSchema = new mongoose.Schema({
 
 
 //######################## METHODS ##################################
-
+var User = mongoose.model('User',UserSchema);
 /**
  * Seed for users
  */
-UserSchema.methods.seed = function() {
-    var defaultUser = new User({email:"blarz@gmail.com", username:'blarz', password:'123456'});
+User.seed = function() {
+   //set default password hash
+    this.setPassword("blarz");  
+    var defaultUser = new User({
+                                email:"blarz@gmail.com", 
+                                username:'blarz', 
+                                password:'123456',
+                                passwordHash: this.getPasswordHash()});
     defaultUser.save(function(err, user) {
         console.log("Users seed saved.");
-    if(err) console.dir('error occured in populating database');
+    if(err) console.dir('error occured in populating database' + err);
     });
 }
 
 /**
  * User register
  */
-UserSchema.methods.create = (req, res) =>{
+User.saveUser = (req, res) =>{
    
 }
 
@@ -52,7 +58,7 @@ UserSchema.methods.create = (req, res) =>{
  * User Login
  * @argument  
  */
-UserSchema.methods.login = (email, password) => {     
+User.login = (email, password) => {     
      //Look up user
     User.findOne({email, password})
         .then(user => {
@@ -67,26 +73,32 @@ UserSchema.methods.login = (email, password) => {
  * Logout 
  */
 
-UserSchema.methods.logout = sessionId => {
+User.logout = sessionId => {
 
 }
 
 //Compare the hash password
-UserSchema.methods.isValidPassword= password => {
+User.isValidPassword= password => {
     return bcryp.compareSync(password,this.passwordHash);
 }
 
 //Set password hash
-UserSchema.methods.setPassword = password =>{
+User.setPassword = password =>{
+   
     this.passwordHash = bcryp.hashSync(password, 10);
+   
+}
+
+User.getPasswordHash = () => {
+    return this.passwordHash;
 }
 
 
-UserSchema.methods.generateJWT = () =>{
+User.generateJWT = () =>{
     
 }
 
 
 
-//var User = mongoose.model('User',UserSchema);
-module.exports=mongoose.model('User',UserSchema);
+
+module.exports=User;

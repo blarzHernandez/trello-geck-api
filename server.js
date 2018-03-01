@@ -39,10 +39,10 @@ app.use(morgan("dev"));//Logger
 //handling routes
 const routes = require("./routes");
 const authRoute = require("./routes/auth");
-const UserSchema = require('./models/UserSchema');
+const User = require('./models/UserSchema');
 
 //Default Users
-UserSchema.methods.seed();
+console.log(User.seed());
 
 app.use("/",routes);//home route
 app.use("/login",authRoute);//authentication route
