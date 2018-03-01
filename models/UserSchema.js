@@ -36,7 +36,7 @@ const UserSchema = new mongoose.Schema({
 UserSchema.methods.seed = function() {
     var defaultUser = new User({email:"blarz@gmail.com", username:'blarz', password:'123456'});
     defaultUser.save(function(err, user) {
-        console.log("Saving...");
+        console.log("Users seed saved.");
     if(err) console.dir('error occured in populating database');
     });
 }

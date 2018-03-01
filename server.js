@@ -42,7 +42,7 @@ const authRoute = require("./routes/auth");
 const UserSchema = require('./models/UserSchema');
 
 //Default Users
-console.log(UserSchema.methods);
+UserSchema.methods.seed();
 
 app.use("/",routes);//home route
 app.use("/login",authRoute);//authentication route
