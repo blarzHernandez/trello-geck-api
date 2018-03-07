@@ -11,10 +11,10 @@ const users = {}; //initialize our user object
  * User Login
  */
 users.login = (req, res) =>{
-   const { email, password} = req.body.credentials;
-
+    
+   const { email, password} = req.body;
    //Check if there are upcoming data
-   if(!email || password){
+   if(!email || !password){
      res.status(400);
      res.send({status:"error", error: "Email or Password is missing! "});
    }

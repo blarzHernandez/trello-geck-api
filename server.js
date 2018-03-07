@@ -11,7 +11,7 @@ mongoose.Promise = global.Promise;
 
 const bodyParser = require("body-parser");//to parser incoming resquest bodies
 const morgan = require("morgan");
-
+console.log("Node_env",keys.NODE_ENV);
 //Connect to mongoDB
 mongoose.connect(keys.MONGO_URI,{useMongoClient:true});
 
@@ -45,7 +45,7 @@ const User = require('./models/UserSchema');
 console.log(User.seed());
 
 app.use("/",routes);//home route
-app.use("/login",authRoute);//authentication route
+app.use("/auth",authRoute);//authentication route
 
 
 const port = process.env.PORT || 3001;
