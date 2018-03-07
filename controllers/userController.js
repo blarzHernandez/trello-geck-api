@@ -21,6 +21,7 @@ users.login = (req, res) =>{
 
    userModel.findOne({email:email, password:password})
    .then(user => {
+       console.log(user);
        if(user && user.isValidPassword(password)){
            res.send({user:user})
        }else{
