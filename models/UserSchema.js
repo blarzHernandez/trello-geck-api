@@ -50,8 +50,7 @@ User.isValidPassword= password => {
 }
 
 //Set password hash
-User.setPassword = password =>{   
-    const salt = bcrypt.genSaltSync();
+User.setPassword = password =>{      
     this.passwordHash = bcrypt.hashSync(password, 10);
    
 }
