@@ -16,11 +16,6 @@ const UserSchema = new mongoose.Schema({
         required:true
         
     },
-    password:{
-        type:String,
-        required:true
-
-    },
     passwordHash:{
         type:String,
         required:true
@@ -38,8 +33,7 @@ User.seed = function() {
     this.setPassword("123456");  
     var defaultUser = new User({
                                 email:"blarz@gmail.com", 
-                                username:'blarz', 
-                                password:'123456',
+                                username:'blarz',                               
                                 passwordHash: this.getPasswordHash()});
     defaultUser.save(function(err, user) {
         console.log("Users seed saved.");
@@ -67,7 +61,17 @@ User.getPasswordHash = () => {
 
 
 User.generateJWT = () =>{
-    
+    return jwt.sign({
+        email:this.email
+    },process.env.JWT_SECRET || 'yoursecretkey');
+}
+
+
+User.setJWTToken = () =>{
+   return {
+       email:this.email,
+       token:this.generateJWT()
+   }
 }
 
 
