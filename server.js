@@ -40,6 +40,7 @@ app.use(morgan("dev"));//Logger
 //handling routes
 const routes = require("./routes");
 const authRoute = require("./routes/auth");
+const userRoute = require("./routes/user");
 const User = require('./models/UserSchema');
 
 //Default Users
@@ -47,6 +48,7 @@ console.log(User.seed());
 
 app.use("/",routes);//home route
 app.use("/api/user",authRoute);//authentication route
+app.use("/api/user",userRoute);
 
 
 const port = process.env.PORT || 3001;
