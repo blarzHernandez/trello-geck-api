@@ -45,13 +45,14 @@ User.seed = function() {
 
 
 //Compare the hash password
-User.isValidPassword= password => {
+User.isValidPassword= password => {  
     return bcrypt.compareSync(password,this.passwordHash);
 }
 
 //Set password hash
 User.setPassword = password =>{   
-    this.passwordHash = bcrypt.hashSync(password, 10);
+    const salt = bcrypt.genSaltSync();
+    this.passwordHash = bcrypt.hashSync(password, salt);
    
 }
 
