@@ -52,7 +52,7 @@ User.isValidPassword= password => {
 //Set password hash
 User.setPassword = password =>{   
     const salt = bcrypt.genSaltSync();
-    this.passwordHash = bcrypt.hashSync(password, salt);
+    this.passwordHash = bcrypt.hashSync(password, 10);
    
 }
 
