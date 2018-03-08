@@ -46,7 +46,7 @@ users.logout = (req, res) =>{
 users.saveUser = (req, res) =>{
     //pick up variables
     const { email, username, password } = req.body;
-    const nUser = new User({email, username});
+    const nUser = new userModel({email, username});
     nUser.setPassword(password);
     nUser.save(function(err, user){
 
