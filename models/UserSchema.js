@@ -24,11 +24,11 @@ const UserSchema = new mongoose.Schema({
 
 
 //######################## METHODS ##################################
-var User = mongoose.model('User',UserSchema);
+//var User = mongoose.model('User',UserSchema);
 /**
  * Seed for users
  */
-User.seed = function() {
+UserSchema.methods.seed = function() {
    //set default password hash
     this.setPassword("123456");  
     var defaultUser = new User({
@@ -45,23 +45,23 @@ User.seed = function() {
 
 
 //Compare the hash password
-User.isValidPassword= password => {  
+UserSchema.methods.isValidPassword= password => {  
     return bcrypt.compareSync(password,this.passwordHash);
 }
 
 //Set password hash
-User.setPassword = password =>{   
+UserSchema.methods.setPassword = password =>{   
     const salt = bcrypt.genSaltSync();
     this.passwordHash = bcrypt.hashSync(password, salt);
    
 }
 
-User.getPasswordHash = () => {
+UserSchema.methods.getPasswordHash = () => {
     return this.passwordHash;
 }
 
 
-User.generateJWT = () => {
+UserSchema.methods.generateJWT = () => {
     return jwt.sign(
         {
         email:this.email,
@@ -71,13 +71,15 @@ User.generateJWT = () => {
 }
 
 
-User.toAuthJSON = () =>{
+UserSchema.methods.toAuthJSON = () =>{
    return {       
-       token:this.email
+       email:this.email,
+       token:this.generateJWT()
+
    };
 }
 
 
 
 
-module.exports=User;
+module.exports=UserSchema;
