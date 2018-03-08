@@ -71,7 +71,7 @@ User.generateJWT = () =>{
 User.setJWTToken = () =>{
    return {
        email:this.email,
-       token:this.generateJWT()
+       token:'testtole'
    }
 }
 
