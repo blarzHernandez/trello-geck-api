@@ -73,8 +73,8 @@ User.generateJWT = () => {
 
 User.toAuthJSON = () =>{
    return { 
-       email:this.email,
-       token:User.generateJWT()
+       email:this.email
+       //token:User.generateJWT()
    };
 }
 
