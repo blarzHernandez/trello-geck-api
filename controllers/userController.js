@@ -46,7 +46,7 @@ users.logout = (req, res) =>{
 users.saveUser = (req, res) =>{
     //pick up variables
     const { email, username, password } = req.body;
-    const nUser = new userModel({email:email, username:username, passwordHass:userModel.setPassword(password)});   
+    const nUser = new userModel({email:email, username:username, passwordHash:userModel.setPassword(password)});   
     nUser.save(function(err, user){
 
         if(err) console.dir('error occured saving an user' + err);
