@@ -23,7 +23,7 @@ users.login = (req, res) =>{
    .then(user => {      
        
        if(user && userModel.isValidPassword(password)){
-           res.json({user:userModel.setJWTToken() });
+           res.json({user:userModel.toAuthJSON() });
        }else{
            res.status(400).json({status:"error", error:"Invalid Credentials"});
        }
