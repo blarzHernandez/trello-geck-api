@@ -52,7 +52,7 @@ User.seed = function() {
 
 //Compare the hash password
 User.isValidPassword= password => {
-    return bcryp.compareSync(password,this.passwordHash);
+    return bcryp.compareSync(password,getPasswordHash());
 }
 
 //Set password hash
