@@ -46,16 +46,17 @@ users.logout = (req, res) =>{
 users.saveUser = (req, res) =>{
     //pick up variables
     const { email, username, password } = req.body;
-    const nUser = new userModel({email:email, username:username, passwordHash:userModel.setPassword(password)});   
-    res.json(nUser);
-    /*nUser.save(function(err, user){
+    const passwordHash = userModel.setPassword(password);
+    const nUser = new userModel({email:email, username:username, passwordHash:userModel.getPasswordHash()});   
+   
+    nUser.save(function(err, user){
 
         if(err) console.dir('error occured saving an user' + err);
         res.json({
             user:email,
             token:nUser.toAuthJSON(user)
         });
-    });*/
+    });
         
 
 
