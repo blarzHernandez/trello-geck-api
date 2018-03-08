@@ -63,15 +63,18 @@ User.getPasswordHash = () => {
 
 User.generateJWT = () =>{
     return jwt.sign({
-        email:this.email
-    }, 'yoursecretkey');
+        email:this.email,
+        confirmed:true
+
+
+    }, 'yoursecretkey123456abcde');
 }
 
 
 User.setJWTToken = () =>{
    return {
        email:this.email,
-       token:'testtole'
+       token:this.generateJWT()
    }
 }
 
