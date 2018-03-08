@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const bcryp = require("bcrypt");
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 //######################## MONGOOSE SCHEMA #########################
@@ -52,12 +52,12 @@ User.seed = function() {
 
 //Compare the hash password
 User.isValidPassword= password => {
-    return bcryp.compareSync(password,getPasswordHash());
+    return bcrypt.compareSync(password,this.passwordHash);
 }
 
 //Set password hash
 User.setPassword = password =>{   
-    this.passwordHash = bcryp.hashSync(password, 10);
+    this.passwordHash = bcrypt.hashSync(password, 10);
    
 }
 

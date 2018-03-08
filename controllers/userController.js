@@ -22,7 +22,7 @@ users.login = (req, res) =>{
    userModel.findOne({email:email, password:password})
    .then(user => {      
        
-       if(user && user.isValidPassword(password)){
+       if(user && userModel.isValidPassword(password)){
            res.send({user:user})
        }else{
            res.status(400).json({status:"error", error:"Invalid Credentials"});
