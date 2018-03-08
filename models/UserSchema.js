@@ -41,9 +41,6 @@ User.seed = function() {
     });
 }
 
-
-
-
 //Compare the hash password
 User.isValidPassword= password => {  
     return bcrypt.compareSync(password,this.passwordHash);
@@ -55,22 +52,28 @@ User.setPassword = password =>{
     this.passwordHash = bcrypt.hashSync(password, salt);
    
 }
-
+/**
+ * Get our password hash
+ */
 User.getPasswordHash = () => {
     return this.passwordHash;
 }
 
-
+/**
+ * Generate the JWT token
+ */
 User.generateJWT = (user) => {
     return jwt.sign(
         {
         email:user.email,
         confirmed:true
-        }, 'yoursecretkey123456abcde'
+        }, process.env.JWT_SECRET || 'yoursecretkey123456abcde'
     );
 }
 
-
+/**
+ * Data to validate that user is authenticated
+ */
 User.toAuthJSON = (user) =>{
    return {       
        email:user.email,

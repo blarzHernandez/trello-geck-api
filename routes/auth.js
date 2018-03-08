@@ -3,7 +3,8 @@ const users = require("../controllers/userController");
 const authRouter = express.Router();
 
 
-//router.get("/register", auth.register);
+//Users auth
 authRouter.post("/login",users.login);
+//authRouter.post("/logout",users.logout);
 
 module.exports = authRouter;
