@@ -24,11 +24,11 @@ const UserSchema = new mongoose.Schema({
 
 
 //######################## METHODS ##################################
-//var User = mongoose.model('User',UserSchema);
+var User = mongoose.model('User',UserSchema);
 /**
  * Seed for users
  */
-UserSchema.methods.seed = function() {
+User.seed = function() {
    //set default password hash
     this.setPassword("123456");  
     var defaultUser = new User({
@@ -45,36 +45,36 @@ UserSchema.methods.seed = function() {
 
 
 //Compare the hash password
-UserSchema.methods.isValidPassword= password => {  
+User.isValidPassword= password => {  
     return bcrypt.compareSync(password,this.passwordHash);
 }
 
 //Set password hash
-UserSchema.methods.setPassword = password =>{   
+User.setPassword = password =>{   
     const salt = bcrypt.genSaltSync();
     this.passwordHash = bcrypt.hashSync(password, salt);
    
 }
 
-UserSchema.methods.getPasswordHash = () => {
+User.getPasswordHash = () => {
     return this.passwordHash;
 }
 
 
-UserSchema.methods.generateJWT = () => {
+User.generateJWT = (user) => {
     return jwt.sign(
         {
-        email:this.email,
+        email:user.email,
         confirmed:true
         }, 'yoursecretkey123456abcde'
     );
 }
 
 
-UserSchema.methods.toAuthJSON = () =>{
+User.toAuthJSON = (user) =>{
    return {       
-       email:this.email,
-       token:this.generateJWT()
+       email:user.email,
+       token:this.generateJWT(user)
 
    };
 }
@@ -82,4 +82,4 @@ UserSchema.methods.toAuthJSON = () =>{
 
 
 
-module.exports=UserSchema;
+module.exports=User;
