@@ -64,7 +64,7 @@ User.getPasswordHash = () => {
 User.generateJWT = () =>{
     return jwt.sign({
         email:this.email
-    },process.env.JWT_SECRET || 'yoursecretkey');
+    }, 'yoursecretkey');
 }
 
 
