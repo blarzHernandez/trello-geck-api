@@ -61,21 +61,21 @@ User.getPasswordHash = () => {
 }
 
 
-User.generateJWT = () =>{
-    return jwt.sign({
+User.generateJWT = () => {
+    return jwt.sign(
+        {
         email:this.email,
         confirmed:true
-
-
-    }, 'yoursecretkey123456abcde');
+        }, 'yoursecretkey123456abcde'
+    );
 }
 
 
-User.setJWTToken = () =>{
+User.toAuthJSON = () =>{
    return {
        email:this.email,
        token:this.generateJWT()
-   }
+   };
 }
 
 
