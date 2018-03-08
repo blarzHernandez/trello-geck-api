@@ -6,8 +6,9 @@ const express = require("express")///invoke express framework
 const app = express();//define our app using express
 const mongoose = require("mongoose");
 const keys = require('./config/keys');
+const Promise = require('bluebird');
 //const mongoDb = require("mongodb");
-mongoose.Promise = global.Promise;
+mongoose.Promise = Promise;
 
 const bodyParser = require("body-parser");//to parser incoming resquest bodies
 const morgan = require("morgan");

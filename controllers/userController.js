@@ -20,10 +20,9 @@ users.login = (req, res) =>{
    }
 
    userModel.findOne({email:email, password:password})
-   .then(user => {
-       
-       if(user){
-           console.log(userModel.isValidPassword(password));
+   .then(user => {      
+       console.log(user.isValidPassword(password));
+       if(user && user.isValidPassword(password)){
            res.send({user:user})
        }else{
            res.status(400).json({status:"error", error:"Invalid Credentials"});
