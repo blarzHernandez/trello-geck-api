@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 //######################## MONGOOSE SCHEMA #########################
-const User = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
     email:{
         type:String,
         unique:true,
@@ -73,8 +73,8 @@ User.generateJWT = () => {
 
 User.toAuthJSON = () =>{
    return { 
-       email:this.email
-       //token:User.generateJWT()
+       email:this.email,
+       token:User.generateJWT()
    };
 }
 
