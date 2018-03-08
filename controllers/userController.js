@@ -54,7 +54,7 @@ users.saveUser = (req, res) =>{
         if(err) console.dir('error occured saving an user' + err);
         res.json({
             user:email,
-            token:nUser.toAuthJSON(user)
+            token:user
         });
     });
         
