@@ -25,12 +25,6 @@ mongoose.connection.once("open",function(){
 });
 
 
-///Just mongoDB
-/*mongoDb.MongoClient.connect(`mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@ds249428.mlab.com:49428/heroku_8pxz75t5`,(error, db)=>{
-console.log(error);
-});*/
-
-
 //Config
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
@@ -43,17 +37,14 @@ const authRoute = require("./routes/auth");
 const userRoute = require("./routes/user");
 const User = require('./models/UserSchema');
 
-//Default Users
+//Default Users ...seeds
 console.log(User.seed());
 
 app.use("/",routes);//home route
 app.use("/api/user",authRoute);//authentication route
-app.use("/api/user",userRoute);
-
+app.use("/api/user",userRoute);//user routes
 
 const port = process.env.PORT || 3001;
-//const host = "localhost";
-
 
 app.listen(port, ()=>{
  console.log(`Express Server running On port: ${port}`);

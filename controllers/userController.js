@@ -48,19 +48,12 @@ users.saveUser = (req, res) =>{
     const { email, username, password } = req.body;
     const passwordHash = userModel.setPassword(password);
     const nUser = new userModel({email:email, username:username, passwordHash:userModel.getPasswordHash()});   
-   
-    nUser.save(function(err, user){
-
-        if(err) console.dir('error occured saving an user' + err);
-        res.json({
-            user:email,
-            token:user
-        });
-    });
-        
-
-
-       
+  //save user
+    nUser
+        .save()
+        .then(user =>{
+            res.json({ token:userModel.toAuthJSON(user)});})
+        .catch(error => res.status(400).json(error)) ;      
 }
 
 
